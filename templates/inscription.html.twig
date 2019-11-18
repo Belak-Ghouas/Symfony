@@ -1,0 +1,138 @@
+<!DOCTYPE html> <html lang="fr">
+
+
+
+
+{% block head %}
+
+{% block stylesheets %}
+<link href="{{ asset('css/html3.css') }}" rel="stylesheet" />
+<link href="{{ asset('js/html3.css') }}" rel="stylesheet" />
+<link href="{{ asset('css/bootstrap/css/bootstrap-theme.min.css') }}" rel ="stylesheet"/>
+<link href="{{ asset('css/bootstrap/css/bootstrap.min.css') }}" rel ="stylesheet"/>
+  <style type="text/css">
+    
+   body{
+  font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #1d3c41;
+  
+}
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+body{background:url(http://www.businessnewsdaily.com/images/i/000/007/874/original/free-business-plan-templates.jpg);
+background-attachment:fixed;
+background-size:cover;
+}
+  </style>
+
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<title>ghouas web</title>
+
+
+
+{% block javascripts %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+{% endblock %}
+
+</head>
+{% endblock %}
+
+
+{% block body %}
+<body>
+<div class="row">
+    <div class="col-md-12">
+     <nav class="navbar navbar-inverse">
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="/home">Home</a></li>
+         <li><a href="{{path('about')}}">About</a></li>
+       </ul>
+      
+     </nav> 
+   </div>
+ </div>
+ 
+  {% if ErreurInscription is defined %}
+  <div class="alert alert-danger">
+    <strong>Ouups!</strong>
+
+    {{ErreurInscription}}   
+
+  </div>
+  {% endif %}
+
+
+
+
+    <div class="container col-sm-5 col-sm-push-3">
+      <h2 style=" font-family: 'Raleway', sans-serif;margin-left: 40%;color: rgba(255,255,255,255); ">Inscription</h2>
+    {{ form_start(form) }}
+
+
+       <div class="row">
+        <div class="input-group ">
+          <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i></span>
+          {{ form_widget(form.nom, { 'attr': {'class': 'form-control' ,'placeholder':' Entrer votre nom ...'} }) }}
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="input-group ">
+          <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i></span>
+          {{ form_widget(form.prenom, { 'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Prenom ...'} }) }}
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="custom-file">
+          <div class="input-group ">
+            <span class="input-group-addon"> <i class="glyphicon glyphicon-picture"></i></span>
+            {{form_widget(form.image,{'attr' : {'class': 'ustom-file-input','style':'', 'id':'image'} }) }}
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
+          {{ form_widget(form.email, { 'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Email ...'} }) }}
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
+          {{ form_widget(form.password, { 'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Password ...'} }) }}
+        </div>
+      </div>
+      <br>
+        <div class="row">
+        <div class="input-group col-md-12">
+          {{ form_widget(form.Enregistrer,{ 'attr': {'class': 'form-control' } })}}
+        </div>
+      </div>
+
+      {{ form_end(form) }}
+    </div>
+
+    
+
+</body>
+{% endblock %}
+
+<footer style="font-size: 18px;">  
+
+   <div >
+        &copy; Copyright 2018 by <a href="{{path('about')}}">Abdel & Samir</a>.
+   </div>
+
+  </footer>
+
+</html>

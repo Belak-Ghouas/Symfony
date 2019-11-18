@@ -1,0 +1,186 @@
+ <!DOCTYPE html> <html lang="fr">
+
+ {% block stylesheets %}
+ <link href="{{ asset('css/html3.css') }}" rel="stylesheet" />
+ <link href="{{ asset('js/html3.css') }}" rel="stylesheet" />
+ <link href="{{ asset('css/bootstrap/css/bootstrap-theme.min.css') }}" rel ="stylesheet"/>
+ <link href="{{ asset('css/bootstrap/css/bootstrap.min.css') }}" rel ="stylesheet"/>
+ {% endblock %}
+
+
+ {% block head %}
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+ {% block javascripts %}
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+ <script>
+  $(document).ready( function(){
+
+  });
+</script>
+
+{% endblock %}
+
+{% endblock %}
+
+</head>
+
+{% block body %}
+<body>
+
+  <div class="row">
+    <div class="col-md-12">
+     <nav class="navbar navbar-inverse">
+       <div class="navbar-header">
+         <a class="navbar-brand" href="{{path('profile')}}"  >
+           {{user}}
+         </a>
+       </div>
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="/home">Home</a></li>
+         <li><a href="{{path('about')}}">About</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a href="{{path('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+       </ul>
+     </nav> 
+   </div>
+ </div>
+
+
+
+
+ {% if publication is defined %}
+ {% for pub in publication%}
+ <div class="media" style=" background-color:rgb(255,255,255);">
+
+  <div class="dropdown" style="float: right;">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+      <span class="glyphicon glyphicon-cog"></span></button>
+      <ul class="dropdown-menu" >
+        <li><a href="{{path('supprimer')}}?id={{pub.id}}"> Supprimer la publication</a></li>
+        <li><a href="#">modifier la publication</a></li>
+      </ul>
+    </div>
+    <div class="media-right media-top">
+      <img src='{{asset(profile)}}' class="media-object img-circle" width="50px" height="50px">
+    </div>
+
+    <div class="media-body" >
+      <h4 class="media-heading " style="margin-left:10px; "><a href="#">{{pub.user.nom}}</a></h4>
+
+      {% if pub.type is defined %}
+
+      {%if pub.type =="photo" %}
+      <p style="margin-left: 10px;">{{pub.nom}}</p>
+      <div class="w3-container" style="margin-left: 10px;">
+        <img src='{{asset(pub.chemin)}}'  width="500px" height="200px">
+      </div>
+      {% elseif pub.type =="video" %}
+      <p style="margin-left: 10px;">{{pub.nom}}</p>
+      <div class="w3-container" style="margin-left: 10px;">
+        <video controls src='{{asset(pub.chemin)}}'  width="500px" height="200px"> </video>
+      </div>
+      {% elseif pub.type=="article" %}
+      <div class="w3-container" style="margin-left: 10px;">
+        <p> {{pub.nom}}</p>
+      </div>
+      {% elseif pub.type=="document" %}
+      <div class="w3-container" style="margin-left: 10px;">
+
+        <p> {{pub.nom}}</p>
+        <iframe src='{{asset(pub.chemin)}}' width="500px" height="200px" align="middle"></iframe>
+
+      </div>
+      <a href={{asset(pub.chemin)}} style="float:right;"> <span class="glyphicon glyphicon-download-alt">Download </span></a>
+      {% endif%}
+
+
+
+
+
+      <div>
+        <em style='font-size:12px; color: grey ;margin-left:70%' >  publier le:{{ pub.date|date("Y-m-d H:i") }}</em>
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+  <div>
+    <p style="margin-left: 5px"></p>
+  </div>
+  <div style='border-top:1px solid #e1e1e1;padding-top:10px'>
+
+    <div class="container">
+      <button type="button" class="btn btn-info" data-toggle="collapse" data-target={{'#'~pub.id}}>
+       Commentaires <span style='font-size:15px ;margin-left:10px; '>{{pub.nbrcomment}}</span>
+     </button> 
+
+     <div id={{pub.id}} class="collapse">
+
+      {% if commentaire is defined %}
+      {% for comment in commentaire%}
+      {%if comment.publications.id==pub.id%}
+
+
+      <div class="col-md-6" style='margin-top:10px;margin-left:20px;margin-right:0px;'>
+        <div class="panel panel-default">
+          <div class="panel-heading" style="font-size: 10px">
+           <span><img src='{{asset(pub.user.image)}}' class="media-object img-circle" width="20px" height="20px" style="display: inline-block;" ></span> <strong>{{comment.user.nom}}</strong> <span class="text-muted">commented {{ comment.date|date("Y-m-d H:i") }}</span>
+         </div>
+         <div class="panel-body">
+           <em>   {{comment.comment}}</em>
+         </div>
+       </div>
+     </div>
+     <div class=""></div>
+
+     {% endif %}
+     {% endfor %}
+     {% endif %}
+
+   </div>
+ </div>
+
+ <form  method="POST" action="{{path('comment')}}"  enctype="multipart/form-data" >
+
+  <textarea type='text' name="comment"  style='margin-top:10px;margin-left:10px;width:97%;height:35px;overflow:hidden' class='form-control' placeholder='Ajouter un commentaire...'></textarea>
+  <a type="submit" id="lienComment" name="idPub" value={{pub.id}} >
+    <span class='glyphicon glyphicon-send' style='margin-left: 94%;top: -25px;cursor:pointer'></span>
+  </a>
+  <select name="idPub" style="display: none" >
+   <option value={{pub.id}}  ></option>
+ </select>
+ <button  type="submit" value={{pub.id}} id="buttonComment" style="display: none"></button>
+</form>
+
+</div>
+</div> 
+
+{% endfor %} 
+{% else %}
+<div>
+  <h4>Vous n'avez aucune Publications</h4>
+</div>
+{% endif %}
+
+{% endblock %}
+
+<footer style="font-size: 12px;">  
+
+ <div style="">
+  &copy; Copyright 2018 by <a href="{{path('about')}}">Abdel & Samir</a>.
+</div>
+
+</footer>
+
+</html>

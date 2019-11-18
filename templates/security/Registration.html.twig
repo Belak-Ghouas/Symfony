@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+
+	{% block stylesheets %}
+
+		<link href="{{ asset('css/html3.css') }}" rel="stylesheet"/>
+		<link href="{{ asset('js/html3.css') }}" rel="stylesheet"/>
+		<link href="{{ asset('css/bootstrap/css/bootstrap-theme.min.css') }}" rel="stylesheet"/>
+		<link href="{{ asset('css/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/>
+		<style type="text/css">
+
+
+			@import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+			body {
+				background: url('http://www.businessnewsdaily.com/images/i/000/007/874/original/free-business-plan-templates.jpg');
+				background-attachment: fixed;
+				background-size: cover;
+			}
+		</style>
+	{% endblock %}
+
+{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+	{% if ErreurInscription is defined %}
+		<div class="alert alert-danger">
+			<strong>Ouups!</strong>
+
+			{{ErreurInscription}}
+
+		</div>
+	{% endif %}
+
+
+	<div class="container col-sm-5 col-sm-push-3">
+		{{ form_start(form) }}
+
+
+		<div class="row">
+			<label>Nom d'utilisateur</label>
+			<div class="input-group ">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-user"></i>
+				</span>
+				{{ form_widget(form.nom, { 'attr': {'class': 'form-control' ,'placeholder':' Entrer votre nom ...'} }) }}
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<label>Prénom
+			</label>
+			<div class="input-group ">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-user"></i>
+				</span>
+				{{ form_widget(form.prenom, { 'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Prenom ...'} }) }}
+			</div>
+		</div>
+
+		<br>
+		<div class="row">
+			<label>Adresse mail</label>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+				</span>
+				{{ form_widget(form.email, {'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Email ...'} }) }}
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<label>Password</label>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-lock" aria-hidden="true"></i>
+				</span>
+				{{ form_widget(form.password, {'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Password ...'} }) }}
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<label>Confirm Password</label>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-lock" aria-hidden="true"></i>
+				</span>
+				{{ form_widget(form.confirm_password, {'attr': {'class': 'form-control' ,'placeholder':' Entrer votre Password ...'} }) }}
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			
+				<div class="input-group ">
+					{{form_row(form.image,{ 'label':'Profile','attr' : {'class': 'form-control','placeholder':'....photo de profile..'} }) }}
+				</div>
+			
+		</div>
+        <br>
+        <br>
+        <div class="row">
+			<input type="submit" class="btn btn-primary btn-lg btn-block" value="Enregistrer">
+		</div>
+
+		{{ form_end(form) }}
+
+		
+	</div>
+
+
+</body>
+
+
+<footer style="font-size: 15px;">
+
+	<div class="fixed-bottom">
+		&copy; Copyright 2018 by
+		<a href="{{path('about')}}">Abdel</a>.
+	</div>
+
+</footer>{% endblock %}

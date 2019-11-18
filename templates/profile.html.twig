@@ -1,0 +1,150 @@
+ <!DOCTYPE html> <html lang="fr">
+
+ {% block stylesheets %}
+ <link href="{{ asset('css/html3.css') }}" rel="stylesheet" />
+ <link href="{{ asset('js/html3.css') }}" rel="stylesheet" />
+ <link href="{{ asset('css/bootstrap/css/bootstrap-theme.min.css') }}" rel ="stylesheet"/>
+ <link href="{{ asset('css/bootstrap/css/bootstrap.min.css') }}" rel ="stylesheet"/>
+ {% endblock %}
+
+
+ {% block head %}
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+ {% block javascripts %}
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+ <script>
+  $(document).ready( function(){
+
+    $(".select").click( function(){
+      fileElem.click();
+    });
+
+  });
+</script>
+
+{% endblock %}
+
+{% endblock %}
+
+</head>
+
+{% block body %}
+<body>
+
+  <div class="row">
+    <div class="col-md-12">
+     <nav class="navbar navbar-inverse">
+       <div class="navbar-header">
+         <a class="navbar-brand"  href="{{path('profile')}}" >
+           {{user}}
+         </a>
+       </div>
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="/home">Home</a></li>
+         <li><a href="{{path('about')}}">About</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a href="{{path('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+       </ul>
+     </nav> 
+   </div>
+ </div>
+
+ <div class="row">
+   <div class="col-md-2">
+
+    <div style="min-height:100vh;  display: block; box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">
+      <div id="infouser" style="border-bottom: 1px solid #e1e1e1;padding: 0px">
+       <p style="width: 90px; height: 90px;margin-left: 27%; border-radius: 100px;overflow: hidden;">
+        <img src='{{asset(profile)}}' width="90px" height="90px">
+      </p>
+      <a href="{{path('home')}}"
+      style="font-size: 18px;text-decoration: none; display: block;margin-top: 5px;
+      text-align: center">{{user}}</a>
+    </div>
+    <div class="localiser">
+      <ul>
+        <li><span class="glyphicon glyphicon-th-list"></span> Espace de Publications</li>
+
+      </ul>
+    </div>
+
+    <div class="localiser">
+      <ul>
+        <li><span class="glyphicon glyphicon-bookmark"></span> Mes Publication</li>
+
+        <li> <a href="{{path('publication')}}?type=photo" >  Mes Photos </a> </li>
+        <li> <a href="{{path('publication')}}?type=video" >  Mes Videos </a> </li>
+        <li> <a href="{{path('publication')}}?type=document" >  Mes Documents </a> </li>
+        <li> <a href="{{path('publication')}}?type=article" >  Mes Articles </a> </li>
+
+      </ul>
+
+
+    </div>
+  </div>
+
+</div>
+
+<div class="col-md-4"  style="margin-left:20%;min-height:100vh; box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">
+  <div style="margin-left:30%;">
+
+   <em style="font-size: 20px;">  <strong style="display: inline-block;"> Nom d'utilisateurs:</strong>  <p style="color: grey; margin-left:50px; "> {{user}} </p></em> 
+   <p style="width: 190px; height: 190px; border-radius: 100px;overflow: hidden;">
+    <img src='{{asset(profile)}}' width="190px" height="190px">
+  </p>  
+  <form method="POST" action="{{path('profile')}}"  enctype="multipart/form-data">
+    <div class="row" style="margin-right: 10%;">
+    {% if ErreurInscription is defined %}
+    <div class="alert alert-danger col-md-12">
+      <strong>Ouups!</strong>
+
+      {{ErreurInscription}}
+
+    </div>
+    {% endif %}
+  </div>
+
+    <li style="display:block;">
+      <a href="#" id="fileSelect" name="photo" class="select"  style="display: block;">
+        <span class="glyphicon glyphicon-picture"></span> Modifier votre Photo de profile</a>
+      </li>
+      <input type="file" id="fileElem" name="file" style="display:none" accept="image/*" >
+      <button type="submit" class="btn btn-primary active" style="margin-left:20%;">Confirmer</button>
+
+       <li style="display:block;">
+      <a href="#" id="fileSelect" name="photo" class="select"  style="display: block;">
+        <span class="glyphicon glyphicon-user"></span> Modifier votre username</a>
+      </li>
+      <input type="text"  id="username" name="username">
+
+       <li style="display:block;">
+      <a href="#" id="fileSelect" name="photo" class="select"  style="display: block;">
+        <span class="glyphicon glyphicon-lock"></span> Modifier votre Paswword</a>
+      </li>
+      <input type="text" id="password" name="password">
+    </form>
+  </div>
+</div>
+
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+
+</html>
