@@ -1,16 +1,22 @@
 <?php
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
  * @ORM\Entity
+ * @UniqueEntity(
+ *  fields ={"email"},
+ *  message= "L'email que vous avez indiqué est deja présent"
+ * )
  */
-class Utilisateurs
+class Utilisateurs implements UserInterface
 {
     /**
      * @var string
@@ -197,4 +203,14 @@ class Utilisateurs
         return $this->id;
     }
 
+
+    public function getUsername(){
+        return $this->email;
+    }
+
+    public function eraseCredentials(){}
+    public function getSalt(){}
+    public function getRoles(){
+        return ['ROLE_USER'];
+    }
 }

@@ -84,8 +84,7 @@ class MyController extends AbstractController
       
           $file = $form['image']->getData();
           if ($file) {
-          $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-              
+          $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);  
           $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
           try {
             $file->move(
