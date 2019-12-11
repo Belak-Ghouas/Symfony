@@ -8,9 +8,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Utilisateurs
- *
+ * 
  * @ORM\Table(name="utilisateurs")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
  * @UniqueEntity(
  *  fields ={"email"},
  *  message= "L'email que vous avez indiqué est deja présent"
@@ -210,6 +210,7 @@ class Utilisateurs implements UserInterface
 
     public function eraseCredentials(){}
     public function getSalt(){}
+    
     public function getRoles(){
         return ['ROLE_USER'];
     }

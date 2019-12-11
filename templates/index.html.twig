@@ -1,5 +1,5 @@
-<!DOCTYPE html> <html lang="fr">
 
+{% extends "base.html.twig" %}
 {% block stylesheets %}
 <link href="{{ asset('css/html3.css') }}" rel="stylesheet" />
 <link href="{{ asset('js/html3.css') }}" rel="stylesheet" />
@@ -31,81 +31,18 @@
 
 
 
-</head>
+
 
 <body>
-  <div class="row">
-    
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/home">Home</a>
-      </div>
-      <ul class="nav navbar-nav">
-       <li><a href="{{path('about')}}">About</a></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{path('creerUtilisateur')}}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-
-      </ul>
-    </div>
-  </nav>
-  </div>
-
-  <div class="row">
-
-    <div class="row">
-      <h2 class="col-md-4 " style="margin-left:40%; ">Log In</h2>
-
-   </div>
-   
-<div class="row" style="margin-left:10%;">
-    {% if ErreurLogin is defined %}
-    <div class="alert alert-danger col-sm-4 col-sm-push-3">
-      <strong>Ouups!</strong>
-
-      {{ErreurLogin}}
-
-    </div>
-    {% endif %}
-  </div>
-  <div class="container col-md-3 " style="margin-left:35%;" >
-
-    <form class="form-horizontal" method="post" action="{{path('connexion')}}" >
-      <div class="form-group">
-
-
-
-        <div class="input-group ">
-         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-         <input type="text" class="form-control" id="username" placeholder="username" name="username" required >
-       </div>
-       <br>
-       <div class="input-group ">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
-      </div>
-      <br>
-      <div class="input-group col-md-12 ">
-        <button type="submit" class="btn btn-lg btn-primary btn-block" name="signin" role="button" method="post">Sign In</button>
-      </div>
-
-    </div>
-  </form>
-
-</div>
-
-</div>
-
-
-
-
+  
+ <div>
+ <p> Bon jour vous sur la page d'accueil</p>
+ </div>
 
 </body>
 {% endblock %}
 
-
+{% block footer %}
 <footer style="font-size: 12px;">  
 
    <div >
@@ -113,6 +50,5 @@
    </div>
 
   </footer>
+{% endblock %}
 
-
-</html>

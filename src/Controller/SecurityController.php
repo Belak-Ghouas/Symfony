@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\UtilisateursRepository;
 use App\Entity\Utilisateurs;
 use App\Form\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,4 +65,34 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig');
     }
+
+ /**
+ * @Route("/logout" , name="secure_logout")
+ * 
+ */
+    public function logout() {   
+}
+
+/**
+ * @Route("/a" , name="home")
+ * 
+ */
+public function home() {
+    $this->init();
+    $Pub=$this->repositoryPub->findBy(array('type'=> array('photo','video','document','article')),array('date' => 'DESC'));
+         $commentaire=$this->repositoryCom->findAll();
+         $commentaire=$this->repositoryCom->findAll();
+         $messages =$this->repositoryMes->findAll();
+         return $this->render('accueil.html.twig',array('profile'=>$this->session->get('profile'),'user'=>$this->session->get('user'),'publication'=>$Pub,'commentaire'=>$commentaire,'messages'=>$messages));
+
+}
+
+public function init (){
+    
+    $this->repositoryUtil = $this->getDoctrine()->getRepository('Utilisateurs::class');
+    $this->repositoryCom = $this->getDoctrine()->getRepository('Commentaire');
+    $this->repositoryPub=$this->getDoctrine()->getRepository('Publications');
+    $this->repositoryMes=$this->getDoctrine()->getRepository('Messages');
+
+  }
 }

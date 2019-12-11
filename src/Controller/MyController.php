@@ -140,19 +140,8 @@ public function aboutAction (Request $request){
      * @Route("/", name="homepage")
      */
  public function indexAction (Request $request) {
-  $this->session = $request->getSession();
-  if ($this->session->has('id') ){
-    $this->init();
-
-    $Pub=$this->repositoryPub->findBy(array('type'=> array('photo','video','document','article')),array('date' => 'DESC'));
-    $commentaire=$this->repositoryCom->findAll();
-    $utilisateurs =$this->repositoryUtil->findAll();
-    $messages =$this->repositoryMes->findAll();
-
-    return $this->render('accueil.html.twig',array('profile'=>$this->session->get('profile'),'user'=>$this->session->get('user'),'publication'=>$Pub,'commentaire'=>$commentaire,'messages'=>$messages));
-  }else{
+  
     return $this->render('index.html.twig');
-  }
 
 }
 
@@ -202,35 +191,8 @@ public function aboutAction (Request $request){
 
 
 
-    /**
-     * @Route("/logout", name="logout")
-     */
-    public function logoutAction (Request $request){
-     $this->session = $request->getSession();
-     $this->session->clear();
+   
 
-     return $this->render('index.html.twig');
-
-
-   }
-
-   /**
-     * @Route("/test", name="test")
-     */
-    public function testAction (Request $request){
-      
-     $util = new Utilisateurs();  
-     $util->setNom('hello');
-     $util->setPrenom('abdel');
-     $util->setPassword('12421');
-     $util->setEmail('hghg@fgfg.fr');
-     $util->setImage('3232');
-
-     $em = $this->getDoctrine()->getManager();
-     $em->persist($util); // prépare l'insertion dans la BD
-     $em->flush(); // insère dans la BD
-     return $this->render('index.html.twig');
-        }
 
    public function init (){
     
